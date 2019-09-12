@@ -1,12 +1,12 @@
 {
-	"name": "whatfile",
-	"displayName": "WhatFile",
+	"name": "NeoVimSync",
+	"displayName": "NeoVimSync",
 	"description": "Writes the most recently edited file to a specified file.",
-	"version": "0.0.2",
-	"publisher": "MaxHorwood",
+	"version": "0.0.1",
+	"publisher": "Hai",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/MaxHorwood/whatfile.git"
+		"url": "https://github.com/haifengkao/NeoVimSync.git"
 	},
 	"engines": {
 		"vscode": "^1.34.0"
@@ -18,14 +18,14 @@
 	"contributes": {
 		"configuration": [
 			{
-				"title": "What File",
+				"title": "NeoVim Sync",
 				"properties": {
-					"whatFile.fileLocation": {
+					"NeoVimSync.fileLocation": {
 						"type": "string",
 						"description": "Location to write too",
 						"scope": "window"
 					},
-					"whatFile.enabled": {
+					"NeoVimSync.enabled": {
 						"type": "boolean",
 						"description": "Enables extension",
 						"scope": "window"
