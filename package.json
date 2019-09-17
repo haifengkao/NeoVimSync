@@ -2,7 +2,7 @@
     "name": "NeoVimSync",
     "displayName": "NeoVimSync",
     "description": "Writes the most recently edited file to a specified file.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "Hai",
     "repository": {
         "type": "git",
