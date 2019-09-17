@@ -1,7 +1,7 @@
 {
     "name": "NeoVimSync",
     "displayName": "NeoVimSync",
-    "description": "Writes the most recently edited file to a specified file.",
+    "description": "Sync Visual Studio Code recent files to Neovim's recent list",
     "version": "0.0.3",
     "publisher": "Hai",
     "repository": {
