@@ -71,7 +71,7 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
         // If we're not equal to what was stored last time save name of the file.
         if (fileName !== lastChangedFile) {
             dumpInConsole("NeoVimSync touch: " + fileName);
-            touchFile("/usr/local/bin/nvim", ["--noplugin", "--headless", "+q!", fileName]);
+            touchFile(nvimLocation, ["--headless", "+q!", fileName]);
             lastChangedFile = fileName;
         }
     });
