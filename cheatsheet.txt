@@ -6,3 +6,6 @@ vsce package
 
 #local installation
 code --install-extension ./NeoVimSync-0.0.1.vsix
+
+#publish
+vsce publish patch
