@@ -1,6 +1,6 @@
 # NeoVimSync README
 
-add the edited files to the nvim recent file list
+sync Visual Studio Code recent files to Neovim's recent list
 
 ## Extension Settings
 
