@@ -11,8 +11,7 @@ This extension contributes the following settings:
 * `NeoVimSync.loggingEnabled`: enable/disable logging to developer tools
 
 ## Known Issues
-
-None (Yet)
+the recent list will be updated after the files in vscode have been saved. viewing the files won't update the recent list
 
 ## Release Notes
 
