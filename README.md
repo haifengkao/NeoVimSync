@@ -15,7 +15,9 @@ the recent list will be updated after the files in vscode have been saved. viewi
 
 ## Release Notes
 
-Inital release
+
+### 0.6
+- fix file not updated if the filename has space in it
 
 ### 0.0.1
 - Initial release
