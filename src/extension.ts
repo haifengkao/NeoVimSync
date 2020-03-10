@@ -7,9 +7,9 @@ import * as cp from 'child_process';
 
 var neoVimSyncLoggingEnabled = false;
 
-export function dumpInConsole(msg: string) {
+export function dumpInConsole(...args: any[]) {
     if (neoVimSyncLoggingEnabled) {
-        console.log(msg);
+        console.log(...args);
     }
 }
 
@@ -19,6 +19,7 @@ export function touchFile(swiftBinPath: string, params: string[]) {
     stdout = "";
     stderr = "";
     error = null;
+    dumpInConsole("***nvim touch *** ", params);
     const sb = cp.spawn(swiftBinPath, params, { shell: true });
     sb.stdout.on("out", data => {
         stdout += data;
@@ -26,7 +27,7 @@ export function touchFile(swiftBinPath: string, params: string[]) {
     });
     sb.stderr.on("data", data => {
         stderr += data;
-        dumpInConsole("***nvim sync err***" + data);
+        dumpInConsole("***nvim sync success***" + data);
     });
     sb.on("error", function(err: Error) {
         dumpInConsole("***nvim sync error*** " + err.message);
@@ -44,8 +45,8 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 
     let lastChangedFile: string = "";
 
-    // When a file changes get the name from `filepath`
-    const thing = vscode.workspace.onDidChangeTextDocument((filepath) => {
+    // When a file changes get the name from `changeEvent`
+    const thing = vscode.workspace.onDidChangeTextDocument((changeEvent) => {
         // if enabled is not defined or false then don't do anything...
         const isEnabled: boolean | undefined = vscode.workspace.getConfiguration().get("NeoVimSync.enabled");
         const nvimLocation: string | undefined = vscode.workspace.getConfiguration().get("NeoVimSync.nvimLocation");
@@ -54,7 +55,6 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
             neoVimSyncLoggingEnabled = loggingEnabled
         }
 
-        dumpInConsole("NeoVimSync didChange: " + filepath);
 
         if (!isEnabled) {
             dumpInConsole("NeoVimSync disabled");
@@ -64,16 +64,19 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
             return;
         }
 
-        // Get file name
-        const splitFilePath = filepath.document.fileName.split("\\");
-        const fileName = splitFilePath[splitFilePath.length-1];
+        const filePath = changeEvent.document.fileName
+        dumpInConsole("NeoVimSync didChange: " + filePath);
         
         // If we're not equal to what was stored last time save name of the file.
-        if (fileName !== lastChangedFile) {
-            dumpInConsole("NeoVimSync touch: " + fileName);
-            touchFile(nvimLocation, ["--headless", "+q!", fileName]);
-            lastChangedFile = fileName;
-        }
+        if (filePath === lastChangedFile) { return; }
+
+        const fileUri = changeEvent.document.uri
+        if (fileUri.scheme != "file") { return; } // no reason to touch a http file
+
+        dumpInConsole("NeoVimSync touch: " + filePath);
+        touchFile(nvimLocation, ["--headless", "+q!", "\"" + filePath + "\""]);
+        //touchFile(nvimLocation, ["--headless", "+q!", filePath]);
+        lastChangedFile = filePath;
     });
 
     subscriptions.push(thing);
