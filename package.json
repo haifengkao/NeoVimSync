@@ -2,7 +2,7 @@
     "name": "NeoVimSync",
     "displayName": "NeoVimSync",
     "description": "Sync Visual Studio Code recent files to Neovim's recent list",
-    "version": "0.0.5",
+    "version": "0.6",
     "publisher": "Hai",
     "repository": {
         "type": "git",
